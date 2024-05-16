@@ -1,14 +1,15 @@
-﻿using System;
+﻿using Core.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Concrete
+namespace Core.Entities
 {
     [Table("Grades")]
-    public class Grades
+    public class Grades : IEntity
     {
         public int Id { get; set; }
         public int StudentId { get; set; }
