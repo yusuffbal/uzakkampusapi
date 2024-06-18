@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 using Core.Repositories;
 using DataAcces;
 
-namespace DataAccess.Repositories
+namespace DataAccess.Repositores
 {
     public class GenericRepository<Tentity>(AppDbContext context) : IGenericRepository<Tentity>
-       where Tentity : class
+    where Tentity : class
     {
         private readonly DbContext _context = context;
         private readonly DbSet<Tentity> _dbSet = context.Set<Tentity>();
@@ -137,6 +137,46 @@ namespace DataAccess.Repositories
             }
 
             return await query.CountAsync();
+        }
+
+        public Tentity Get(Expression<Func<Tentity, bool>> filter)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<Tentity> GetList(Expression<Func<Tentity, bool>> filter = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IList<Tentity>> GetListAsync(Expression<Func<Tentity, bool>> filter = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int AllCount(Expression<Func<Tentity, bool>> predicate = null, params Expression<Func<Tentity, object>>[] include)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Tentity Add(Tentity entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(Tentity entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Tentity GetFirstOrDefault(Expression<Func<Tentity, bool>> predicate = null, params Expression<Func<Tentity, object>>[] include)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Tentity> GetListByExp(Expression<Func<Tentity, bool>> predicate = null, Func<IQueryable<Tentity>, IOrderedQueryable<Tentity>> orderBy = null, Func<IQueryable<Tentity>, IIncludableQueryable<Tentity, object>> include = null, int pageNumber = -1, int pageSize = -1)
+        {
+            throw new NotImplementedException();
         }
     }
 }

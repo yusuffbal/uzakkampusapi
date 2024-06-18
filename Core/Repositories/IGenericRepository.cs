@@ -41,5 +41,7 @@ namespace Core.Repositories
         void Remove(TEntity entity);
 
         TEntity Update(TEntity entity);
+
     }
 }
+

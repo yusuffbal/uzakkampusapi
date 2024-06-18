@@ -1,7 +1,7 @@
 using Core.Repositories;
 using Core.Services;
 using DataAcces;
-using DataAccess.Repositories;
+using DataAccess.Repositores;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -13,9 +13,8 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers(); // MVC hizmetlerini ekleyin
+builder.Services.AddControllers(); 
 
-// JWT Authentication ekleyin
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
     options.TokenValidationParameters = new TokenValidationParameters
@@ -50,22 +49,19 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
     options.SupportedCultures = new List<CultureInfo> { CultureInfo.InvariantCulture };
     options.SupportedUICultures = new List<CultureInfo> { CultureInfo.InvariantCulture };
 });
-// Yetkilendirme hizmetini ekleyin
 builder.Services.AddAuthorization();
 
-// Veritabaný baðlantýsýný ekleyin
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     var connectionString = builder.Configuration.GetConnectionString("MsSqlConnString");
     options.UseSqlServer(connectionString, options => options.EnableRetryOnFailure());
 });
 
-// Diðer servisleri ekleyin
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+builder.Services.AddScoped<IDashboardService, DashboardService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
-// JWT ayarlarýný yapýlandýrýn
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt"));
 
 var app = builder.Build();
@@ -79,7 +75,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// Authentication ve Authorization middleware'lerini kullanýn
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseCors("CorsPolicy");

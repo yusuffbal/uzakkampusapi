@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Dtos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Entities.Dtos
 {
-    public class LoginDto
+    public class LoginDto :IDto
     {
         public string Email { get; set; }
 
