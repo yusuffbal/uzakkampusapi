@@ -1,5 +1,6 @@
 using Core.Repositories;
 using Core.Services;
+using Core.UnitOfWork;
 using DataAcces;
 using DataAccess.Repositores;
 using Entities.Concrete;
@@ -60,7 +61,12 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IDashboardService, DashboardService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IForumService, ForumService>();
+builder.Services.AddScoped<ICourseServýce, CourseService>();
+builder.Services.AddScoped<IAssigmentService, AssigmentService>();
+
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt"));
 

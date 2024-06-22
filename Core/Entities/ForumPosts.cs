@@ -13,12 +13,18 @@ namespace Core.Entities
     {
         public int Id { get; set; }
         public int ForumId { get; set; }
+        public int AuthorId { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public string Image { get; set; }
+        public string? Image { get; set; }
+        public DateTime? DateOfCreated { get; set; }
 
         [ForeignKey("ForumId")]
         public virtual Forums Forums { get; set; }
+
+
+        [ForeignKey("AuthorId")]
+        public virtual Users Author { get; set; }
 
     }
 }

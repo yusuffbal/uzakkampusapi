@@ -17,7 +17,6 @@ namespace Core.Entities
         public DateTime DateOfStart { get; set; }
         public DateTime DateOfEnd { get; set; }
         public int CourseId { get; set; }
-        public int Type { get; set; }
 
         [ForeignKey("CourseId")]
         public virtual Courses Courses { get; set; }

@@ -18,6 +18,13 @@ namespace Core.Services
 
         public Task<Response<UserDto>> GetCurrentUser(LoginDto loginDto);
 
+        public Task<Response<List<UserDto>>> GetTeacher();
+        public Task<Response<List<UserDto>>> GetStudent(int courseId);
+        public Task<Response<List<UserDto>>> GetAllStudent();
+
+
+
+
 
 
 

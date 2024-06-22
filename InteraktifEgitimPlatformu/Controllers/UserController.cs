@@ -7,10 +7,10 @@ namespace WebAPI.Controllers
 {
     [Route("api/users")]
     [ApiController]
-    [Authorize]
 
     public class UserController(IUserService userService) : CustomBaseController
     {
+        [Authorize]
         [HttpPost]
         [Route("GetCurrentUser")]
 
@@ -18,6 +18,33 @@ namespace WebAPI.Controllers
         {
             var result = await userService.GetCurrentUser(loginDto);
 
+            return ActionResultInstance(result);
+        }
+
+        [HttpPost]
+        [Route("GetTeacher")]
+
+        public async Task<IActionResult> GetTeacher()
+        {
+            var result = await userService.GetTeacher();
+
+            return ActionResultInstance(result);
+        }
+
+        [HttpPost]
+        [Route("GetNotStudentCourse")]
+
+        public async Task<IActionResult> GetStudent(int courseId)
+        {
+            var result = await userService.GetStudent(courseId);
+
+            return ActionResultInstance(result);
+        }
+        [HttpPost]
+        [Route("GetAllStudent")]
+        public async Task<IActionResult> GetAllStudent()
+        {
+            var result = await userService.GetAllStudent();
             return ActionResultInstance(result);
         }
 

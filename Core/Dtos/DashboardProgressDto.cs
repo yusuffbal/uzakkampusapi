@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Core.Dtos
 {
-    public class DashboardProgressDto
+    public class DashboardProgressDto:IDto
     {
         public string CourseName { get; set; }
         public string Teacher { get; set; }
