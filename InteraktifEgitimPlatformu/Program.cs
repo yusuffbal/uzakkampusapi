@@ -64,7 +64,7 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IForumService, ForumService>();
 builder.Services.AddScoped<ICourseServýce, CourseService>();
 builder.Services.AddScoped<IAssigmentService, AssigmentService>();
-
+builder.Services.AddScoped<IExamService, ExamService>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 

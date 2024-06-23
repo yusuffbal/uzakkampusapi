@@ -35,7 +35,6 @@ namespace Service.Services
 
             var courseIds = studentCourses.Select(sc => sc.CourseId).ToList();
 
-            // İlgili kursları çek
             var courses = await _courseRepository.Where(c => courseIds.Contains(c.Id)).ToListAsync();
 
             var courseInfoDtoList = courses.Select(course => new CourseInfoDto
@@ -184,6 +183,23 @@ namespace Service.Services
                 return Response<CourseDocument>.Fail("Course creation failed", 500, true);
 
             }
+        }
+
+        public async Task<Response<CourseVideos>> AddVideo(AddVideoDto videoDto)
+        {
+            var newVideo = new CourseVideos
+            {
+                Name = videoDto.Name,
+                CourseId = videoDto.CourseId,
+                Video = videoDto.Video
+            };
+
+            await _courseVideosRepository.AddAsync(newVideo);
+            unitOfWork.CommmitAsync();
+
+            return Response<CourseVideos>.Success(newVideo, 200);
+
+
         }
     }
 }

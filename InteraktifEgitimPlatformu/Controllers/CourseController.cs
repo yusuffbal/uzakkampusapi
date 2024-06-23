@@ -68,5 +68,13 @@ namespace WebAPI.Controllers
             return ActionResultInstance(result);
         }
 
+        [HttpPost]
+        [Route("AddVideo")]
+        public async Task<IActionResult> AddVideo(AddVideoDto videoDto)
+        {
+            var result = await courseServıce.AddVideo(videoDto);
+            return ActionResultInstance(result);
+        }
+
     }
 }
