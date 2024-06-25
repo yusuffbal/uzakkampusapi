@@ -18,6 +18,10 @@ namespace Core.Services
         public Task<Response<StudentCourseDto>> AddStudentsToCourseAsync(int courseId, IEnumerable<int> studentIds);
         public Task<Response<CourseDocument>> AddDocument(AddCourseDocument document);
         public Task<Response<CourseVideos>> AddVideo(AddVideoDto videoDto);
+        public Task<Response<List<GradesDto>>> GetGrades(int id);
+        public Task<Response<StudentAssigment>> UploadAssigment(UploadAssigmentDto assigmentDto);
+
+
 
 
 

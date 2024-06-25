@@ -12,12 +12,10 @@ namespace Core.Entities
     public class StudentAssigment : IEntity
     {
         public int Id { get; set; }
-        public int StudentID { get; set; }
+        public int StudentId { get; set; }
         public int AssigmentId { get; set; }
-        public float Point { get; set; }
+        public float? Point { get; set; }
         public int Status { get; set; }
-        public DateTime DateOfStart { get; set; }   
-        public DateTime DateOfEnd { get; set;}
         public string Document { get; set; }
         [ForeignKey("StudentId")]
         public virtual Users Student { get; set; }

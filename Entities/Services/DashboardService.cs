@@ -24,7 +24,7 @@ namespace Service.Services
         {
             
             
-                var assigmentsCountTask = await _studentAssigmentRepository.GetListCount(s => s.StudentID == userId);
+                var assigmentsCountTask = await _studentAssigmentRepository.GetListCount(s => s.StudentId == userId);
                 var examsCountTask = await _studentExamRepository.GetListCount(s => s.StudentID == userId);
                 var coursesCountTask = await _studentCourseRepository.GetListCount(s => s.StudentId == userId);
                 var quizCountTask = await _studentQuizRepository.GetListCount(s => s.StudentId == userId);

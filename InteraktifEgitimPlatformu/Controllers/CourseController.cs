@@ -76,5 +76,20 @@ namespace WebAPI.Controllers
             return ActionResultInstance(result);
         }
 
+        [HttpPost]
+        [Route("GetGrades")]
+        public async Task<IActionResult> GetGrades(int id)
+        {
+            var result = await courseServıce.GetGrades(id);
+            return ActionResultInstance(result);
+        }
+        [HttpPost]
+        [Route("UploadAssigment")]
+        public async Task<IActionResult> UploadAssigment(UploadAssigmentDto assigmentDto)
+        {
+            var result = await courseServıce.UploadAssigment(assigmentDto);
+            return ActionResultInstance(result);
+        }
+
     }
 }

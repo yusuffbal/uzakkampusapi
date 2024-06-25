@@ -22,6 +22,8 @@ namespace Service.Services
         IGenericRepository<CourseVideos> _courseVideosRepository,
         IGenericRepository<Exams> _courseExamsRepository,
         IGenericRepository<Quiz> _coureQuizRepository,
+        IGenericRepository<Grades> _gradesRepository,
+        IGenericRepository<StudentAssigment> _studentAssigmentRepository,
         IUnitOfWork unitOfWork
 
         ) : ICourseServıce
@@ -200,6 +202,62 @@ namespace Service.Services
             return Response<CourseVideos>.Success(newVideo, 200);
 
 
+        }
+
+        public async Task<Response<List<GradesDto>>> GetGrades(int id)
+        {
+            var userGrades = await _gradesRepository.GetListByExpAsync(
+                u => u.StudentId == id,
+                include: query => query.Include(g => g.Courses));
+
+            var allGrades = await _gradesRepository.GetListByExpAsync(
+                predicate: null,
+                include: query => query.Include(g => g.Courses),
+                orderBy: null,
+                pageNumber: -1,
+                pageSize: -1);
+
+            var getGrades = userGrades.Select(grades => {
+                var courseId = grades.CourseId;
+
+                var courseGrades = allGrades.Where(g => g.CourseId == courseId);
+
+                var midtermAverage = courseGrades.Average(g => g.MidtermNote);
+                var finalAverage = courseGrades.Average(g => g.FinalNote);
+                var integrationAverage = courseGrades.Average(g => g.IntegrationNote);
+
+                return new GradesDto
+                {
+                    Course = grades.Courses,
+                    MidtermClassAverage = midtermAverage,
+                    FinalClassAverage = finalAverage,
+                    IntegrationClassAverage = integrationAverage,
+                    Average = grades.Average,
+                    FinalNote = grades.FinalNote,
+                    IntegrationNote = grades.IntegrationNote,
+                    MidtermNote = grades.MidtermNote,
+                    Status = grades.Status,
+                };
+            }).ToList();
+
+            return Response<List<GradesDto>>.Success(getGrades, 200);
+        }
+
+        public async Task<Response<StudentAssigment>> UploadAssigment(UploadAssigmentDto assigmentDto)
+        {
+            var newAssigment = new StudentAssigment
+            {
+                Document = assigmentDto.assigmentDocument,
+                AssigmentId = assigmentDto.assigmentId,
+                StudentId = assigmentDto.studentId,
+                Status=1,
+                Point=null
+            };
+
+            var result = await _studentAssigmentRepository.AddAsync(newAssigment);
+            await unitOfWork.CommmitAsync();
+
+            return Response<StudentAssigment>.Success(result, 200);
         }
     }
 }
